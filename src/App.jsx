@@ -1,5 +1,6 @@
 import Logo, { Mark } from "./components/Logo.jsx";
 import Icon from "./components/Icon.jsx";
+import MobileMenu from "./components/MobileMenu.jsx";
 import {
   brand, nav, hero, clients, risks, services, expertise, badges, products, projects,
 } from "./content.js";
@@ -19,6 +20,7 @@ function Header() {
       </div>
       <header className="site">
         <div className="wrap">
+          <MobileMenu links={nav} phone={brand.phone} phoneHref={brand.phoneHref} ctaHref="#estimate" ctaLabel="Get a Free Inspection" />
           <Logo />
           <nav className="primary" aria-label="Primary">
             {nav.map((n) => (
