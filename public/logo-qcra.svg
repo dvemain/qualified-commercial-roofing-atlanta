@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 120" width="560" height="120" font-family="'Barlow Condensed','Arial Narrow',Impact,sans-serif">
+  <title>Qualified Commercial Roofing of Atlanta</title>
+  <g transform="translate(8 8) scale(1.625)">
+    <path d="M37.5 52.7A22 22 0 1 1 50.7 39.5" fill="none" stroke="#10213a" stroke-width="7" stroke-linecap="round"/>
+    <path d="M17 36h6l7-9 7 9h6" fill="none" stroke="#f0862a" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M36 45l6 6 13-13" fill="none" stroke="#f0862a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="128" y="56" font-size="58" font-weight="800" fill="#10213a" letter-spacing="1">QUALIFIED</text>
+  <text x="130" y="84" font-size="22" font-weight="600" fill="#c9661a" letter-spacing="5">COMMERCIAL ROOFING</text>
+  <text x="131" y="106" font-size="15" font-weight="500" fill="#5e6977" letter-spacing="7">OF ATLANTA</text>
+</svg>
