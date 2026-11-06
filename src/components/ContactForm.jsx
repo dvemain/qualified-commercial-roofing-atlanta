@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 /**
- * Contact form. Each submission goes two places:
- *  1. FormSubmit (formsubmit.co) → emails the inquiry to TO_EMAIL. No account needed;
- *     the very first submission triggers a one-time "activate" email to that inbox.
- *  2. Netlify Forms → a stored copy in the Netlify dashboard (Forms tab), for records/spam filtering.
- *     A static copy of this form lives in index.html so Netlify's build bot can register it.
+ * Contact form.
+ *  1. Netlify Forms (always): submission stored in the Netlify dashboard → Forms tab.
+ *     A static copy of this form lives in index.html so Netlify's build bot registers it.
+ *  2. Web3Forms (when VITE_WEB3FORMS_KEY is set): emails the inquiry to the inbox the key
+ *     was issued for (qualifiedinquiry@gmail.com). Get a free key at web3forms.com, then add
+ *     VITE_WEB3FORMS_KEY in Netlify → Environment variables and redeploy. No code change needed.
  */
-const TO_EMAIL = "qualifiedinquiry@gmail.com";
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "";
 const encode = (data) =>
   Object.keys(data).map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
 
@@ -21,25 +22,27 @@ export default function ContactForm({ formName = "contact", dark = false, idPref
     e.preventDefault();
     setStatus("sending");
     try {
-      // Stored copy in Netlify (best effort — never blocks the email)
-      fetch("/", {
+      const netlify = fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({ "form-name": formName, ...values }),
-      }).catch(() => {});
-
-      const res = await fetch(`https://formsubmit.co/ajax/${TO_EMAIL}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          ...values,
-          _subject: `New inquiry — ${siteLabel}`,
-          _template: "table",
-          _captcha: "false",
-          _replyto: values.email,
-        }),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      const email = WEB3FORMS_KEY
+        ? fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              access_key: WEB3FORMS_KEY,
+              subject: `New inquiry — ${siteLabel}`,
+              from_name: siteLabel,
+              replyto: values.email,
+              ...values,
+            }),
+          })
+        : Promise.resolve(null);
+      const [n, w] = await Promise.allSettled([netlify, email]);
+      const ok = (r) => r.status === "fulfilled" && (r.value === null || r.value.ok);
+      if (!ok(n) && !ok(w)) throw new Error("submit failed");
       setStatus("sent");
       setValues({ name: "", email: "", phone: "", address: "", message: "" });
     } catch {
