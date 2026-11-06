@@ -180,7 +180,7 @@ function Contact() {
           <h3>We guarantee a quality product and excellent customer experience.</h3>
           <p className="contact-alt">Prefer to call? <a className="phone" href={brand.phoneHref}>{brand.phone}</a></p>
         </div>
-        <ContactForm formName="commercial-contact" dark idPrefix="qc" />
+        <ContactForm formName="commercial-contact" dark idPrefix="qc" siteLabel="Qualified Commercial Roofing of Atlanta" />
       </div>
     </section>
   );
