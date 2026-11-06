@@ -4,6 +4,8 @@ const paths = {
   gutter: <path d="M3 7h18v3a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM17 13v8M17 21l-2-2M17 21l2-2" />,
   drop: <><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" /><path d="M9 14a3 3 0 0 0 3 3" /></>,
   storm: <path d="M7 16a4 4 0 0 1-.5-8 6 6 0 0 1 11.3 1.5A3.5 3.5 0 0 1 17 16h-2M13 13l-2 4h3l-2 4" />,
+  metal: <path d="M3 17l5-5 5 5 5-5 3 3M3 11l5-5 5 5 5-5 3 3" />,
+  check: <path d="M5 12.5l4.5 4.5L19 7.5" strokeWidth="2.6" />,
   alert: <path d="M12 3 2 20h20L12 3zM12 10v4M12 17.5v.5" />,
   arrow: <path d="M4 12h16M13 5l7 7-7 7" />,
   play: <path d="M7 4v16l14-8z" fill="currentColor" stroke="none" />,
